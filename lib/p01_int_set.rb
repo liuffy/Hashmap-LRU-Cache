@@ -1,22 +1,34 @@
 class MaxIntSet
   def initialize(max)
+    @store = Array.new(max, false) # Array called @store of length max
   end
 
   def insert(num)
+    validate!(num)
+    return false if @store[num]
+    @store[num] = true
   end
 
   def remove(num)
+    validate!(num)
+    return nil unless include?(num)
+    @store[num] = false
+    num
   end
 
   def include?(num)
+    validate!(num)
+    @store[num]
   end
 
   private
 
   def is_valid?(num)
+    num.between?(0, @store.length - 1)
   end
 
   def validate!(num)
+    raise "Out of bounds" unless is_valid?(num)
   end
 end
 
@@ -24,6 +36,7 @@ end
 class IntSet
   def initialize(num_buckets = 20)
     @store = Array.new(num_buckets) { Array.new }
+    # Each element is a subarray
   end
 
   def insert(num)
