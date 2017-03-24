@@ -4,6 +4,8 @@ end
 
 class Array
   def hash
+    almost = self.join(",").unpack("B*")
+    almost[0].to_i ^ 5
   end
 end
 
